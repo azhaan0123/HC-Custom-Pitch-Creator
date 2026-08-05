@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import { PitchData } from '../types/pitch';
 import { PitchDocument } from './PitchDocument/PitchDocument';
-import { ZoomIn, ZoomOut, Maximize2, ShieldCheck, FileCheck } from 'lucide-react';
+import { ZoomIn, ZoomOut, Maximize2 } from 'lucide-react';
+import { Button } from './ui/button';
 
 interface PreviewContainerProps {
   data: PitchData;
   isValid: boolean;
 }
 
-export const PreviewContainer: React.FC<PreviewContainerProps> = ({ data, isValid }) => {
+export const PreviewContainer: React.FC<PreviewContainerProps> = ({ data }) => {
   const [scale, setScale] = useState(0.85);
 
   const zoomIn = () => setScale((s) => Math.min(s + 0.1, 1.25));
@@ -16,61 +17,58 @@ export const PreviewContainer: React.FC<PreviewContainerProps> = ({ data, isVali
   const resetZoom = () => setScale(0.85);
 
   return (
-    <div className="flex flex-col h-full bg-slate-950 rounded-2xl border border-slate-800 overflow-hidden shadow-2xl">
+    <div className="flex flex-col h-full min-h-0 bg-white rounded-xl border border-[#DFE1E6] overflow-hidden shadow-[0_1px_3px_rgba(9,30,66,0.06)]">
       {/* Top Preview Control Bar */}
-      <div className="bg-slate-900 border-b border-slate-800 px-4 py-2.5 flex items-center justify-between">
+      <div className="shrink-0 bg-white border-b border-[#DFE1E6] px-4 py-2 flex items-center justify-between">
         <div className="flex items-center space-x-2">
-          <div className="flex items-center space-x-1.5 bg-emerald-500/10 text-emerald-400 text-xs font-semibold px-2.5 py-1 rounded-full border border-emerald-500/20">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            <span>Live Sync (150ms)</span>
-          </div>
-
-          {isValid ? (
-            <div className="flex items-center space-x-1 text-xs text-slate-400 bg-slate-800 px-2.5 py-1 rounded-full">
-              <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-              <span>Valid Document</span>
-            </div>
-          ) : (
-            <div className="flex items-center space-x-1 text-xs text-amber-400 bg-amber-500/10 border border-amber-500/20 px-2.5 py-1 rounded-full">
-              <span>Required Fields Pending</span>
-            </div>
-          )}
+          <span className="text-xs font-semibold text-[#172B4D] tracking-tight">
+            Document Canvas Preview
+          </span>
+          <span className="bg-[#EAE6FF] text-[#403294] text-[10px] font-bold px-2 py-0.5 rounded-full">
+            Print Ready
+          </span>
         </div>
 
         {/* Zoom Controls */}
-        <div className="flex items-center space-x-1 bg-slate-950 border border-slate-800 rounded-lg p-1">
-          <button
+        <div className="flex items-center space-x-1 bg-[#EBECF0]/80 border border-[#DFE1E6] rounded-lg p-0.5 shadow-2xs">
+          <Button
             type="button"
+            variant="ghost"
+            size="icon"
             onClick={zoomOut}
-            className="p-1 text-slate-400 hover:text-white rounded hover:bg-slate-800 transition-colors"
+            className="h-6 w-6 text-[#6B778C] hover:text-[#172B4D] hover:bg-white rounded-md"
             title="Zoom out"
           >
             <ZoomOut className="w-3.5 h-3.5" />
-          </button>
-          <span className="text-[11px] font-mono font-medium text-slate-300 px-2 min-w-[45px] text-center">
+          </Button>
+          <span className="text-[11px] font-mono font-semibold text-[#172B4D] px-2 min-w-[44px] text-center">
             {Math.round(scale * 100)}%
           </span>
-          <button
+          <Button
             type="button"
+            variant="ghost"
+            size="icon"
             onClick={zoomIn}
-            className="p-1 text-slate-400 hover:text-white rounded hover:bg-slate-800 transition-colors"
+            className="h-6 w-6 text-[#6B778C] hover:text-[#172B4D] hover:bg-white rounded-md"
             title="Zoom in"
           >
             <ZoomIn className="w-3.5 h-3.5" />
-          </button>
-          <button
+          </Button>
+          <Button
             type="button"
+            variant="ghost"
+            size="icon"
             onClick={resetZoom}
-            className="p-1 text-slate-400 hover:text-white rounded hover:bg-slate-800 transition-colors"
+            className="h-6 w-6 text-[#6B778C] hover:text-[#172B4D] hover:bg-white rounded-md"
             title="Reset scale"
           >
             <Maximize2 className="w-3.5 h-3.5" />
-          </button>
+          </Button>
         </div>
       </div>
 
       {/* Main Document Canvas Viewport */}
-      <div className="flex-1 overflow-auto p-8 custom-scrollbar flex justify-center bg-slate-950/80">
+      <div className="flex-1 min-h-0 overflow-auto p-6 md:p-8 custom-scrollbar flex justify-center bg-atlassian-grid">
         <PitchDocument data={data} scale={scale} />
       </div>
     </div>

@@ -3,9 +3,66 @@
 @tailwind utilities;
 
 @layer base {
-  body {
-    @apply bg-slate-950 text-slate-100 antialiased selection:bg-brand-500 selection:text-white;
+  :root {
+    --background: 210 20% 97.5%;
+    --background-secondary: 210 16% 94%;
+    --foreground: 215 25% 15%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 215 25% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 215 25% 15%;
+
+    --primary: 1 74.2% 75.7%;
+    --primary-foreground: 0 10% 15%;
+
+    --secondary: 210 20% 94%;
+    --secondary-foreground: 215 25% 20%;
+
+    --muted: 210 20% 94%;
+    --muted-foreground: 215 15% 45%;
+
+    --accent: 1 74.2% 75.7%;
+    --accent-foreground: 0 10% 15%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --success: 142 71% 45%;
+    --success-foreground: 0 0% 100%;
+
+    --border: 215 16% 89%;
+    --input: 215 16% 89%;
+    --ring: 1 74.2% 75.7%;
+
+    --radius: 0.5rem;
+
+    /* HealthCompiler gradient tokens */
+    --gradient-cta: linear-gradient(135deg, #ef9493 0%, #f89844 100%);
+    --gradient-accent: linear-gradient(135deg, #ef9493 0%, #f9ab66 100%);
+
+    /* Geist font variable */
+    --font-geist-sans: 'Geist Sans', 'Geist', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased selection:bg-primary/20 selection:text-foreground;
+    font-family: var(--font-geist-sans);
+    color: #172B4D;
+    background-color: #F4F5F7;
+  }
+}
+
+/* Background dot grid pattern for Atlassian preview canvas */
+.bg-atlassian-grid {
+  background-color: #F4F5F7;
+  background-image: radial-gradient(#DFE1E6 1.2px, transparent 1.2px);
+  background-size: 16px 16px;
 }
 
 /* Document specific styling for screen and print */
@@ -15,7 +72,8 @@
   padding: 0.55in 0.65in;
   background-color: #ffffff;
   color: #111827;
-  box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 12px 36px -8px rgba(9, 30, 66, 0.16), 0 0 1px rgba(9, 30, 66, 0.25);
+  border-radius: 4px;
   box-sizing: border-box;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   position: relative;
@@ -50,21 +108,53 @@
   }
 }
 
-/* Custom scrollbars for form editor */
+/* Custom scrollbars for form editor (light mode) */
 .custom-scrollbar::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-track {
-  background: rgba(15, 23, 42, 0.6);
+  background: hsl(var(--muted));
+  border-radius: 9999px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: rgba(51, 65, 85, 0.8);
+  background: hsl(var(--border));
   border-radius: 9999px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: rgba(100, 116, 139, 1);
+  background: hsl(var(--muted-foreground) / 0.4);
+}
+
+/* Radix Collapsible animation */
+[data-state="open"] > .collapsible-content {
+  animation: accordion-down 0.2s ease-out;
+}
+
+[data-state="closed"] > .collapsible-content {
+  animation: accordion-up 0.2s ease-out;
+}
+
+@keyframes accordion-down {
+  from {
+    height: 0;
+    opacity: 0;
+  }
+  to {
+    height: var(--radix-collapsible-content-height);
+    opacity: 1;
+  }
+}
+
+@keyframes accordion-up {
+  from {
+    height: var(--radix-collapsible-content-height);
+    opacity: 1;
+  }
+  to {
+    height: 0;
+    opacity: 0;
+  }
 }

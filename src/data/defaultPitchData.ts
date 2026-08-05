@@ -4,6 +4,7 @@ export const defaultPitchData: PitchData = {
   brand: {
     practiceName: 'Riverside Direct Primary Care',
     logoUrl: '',
+    accentColor: '#ef9493',
   },
   offerIntro: {
     body: 'We are a direct primary care practice. That means your employees get a dedicated doctor they can call, text, or visit the same day. No copays. No insurance paperwork. No waiting weeks for an appointment. It is healthcare that works the way it should.',
@@ -64,6 +65,8 @@ Your people notice. Healthcare that employees actually use and appreciate is a r
     address: '104 Health Science Pkwy, Suite 200, Austin, TX 78701',
     contractTerms: '12-month agreement with a 60-day cancellation clause',
     websiteUrl: 'https://www.riversidedirectcare.com',
+    qrColorMode: 'black',
+    qrCustomColor: '#ef9493',
   },
 };
 

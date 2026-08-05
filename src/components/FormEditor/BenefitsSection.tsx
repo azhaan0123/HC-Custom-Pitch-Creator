@@ -1,6 +1,9 @@
 import React from 'react';
 import { PitchData } from '../../types/pitch';
 import { Plus, Trash2, ArrowUp, ArrowDown, GripVertical } from 'lucide-react';
+import { Input } from '../ui/input';
+import { Label } from '../ui/label';
+import { Button } from '../ui/button';
 
 interface BenefitsSectionProps {
   data: PitchData;
@@ -44,10 +47,10 @@ export const BenefitsSection: React.FC<BenefitsSectionProps> = ({ data, onChange
   return (
     <div className="space-y-3">
       <div className="flex items-center justify-between">
-        <label className="block text-xs font-semibold text-slate-300">
-          What Your Team Gets <span className="text-brand-400">*</span>
-        </label>
-        <span className="text-[10px] text-slate-400">
+        <Label>
+          What Your Team Gets <span className="text-primary">*</span>
+        </Label>
+        <span className="text-[10px] text-muted-foreground">
           {items.length}/{MAX_ITEMS} items (Min {MIN_ITEMS})
         </span>
       </div>
@@ -58,23 +61,23 @@ export const BenefitsSection: React.FC<BenefitsSectionProps> = ({ data, onChange
           return (
             <div
               key={idx}
-              className="flex items-center space-x-2 bg-slate-900 border border-slate-800 rounded-lg p-2 group hover:border-slate-700 transition-colors"
+              className="flex items-center space-x-2 bg-card border border-border rounded-lg p-2 group hover:border-primary/30 transition-colors"
             >
-              <div className="flex items-center text-slate-600 group-hover:text-slate-400">
+              <div className="flex items-center text-muted-foreground/40 group-hover:text-muted-foreground">
                 <GripVertical className="w-4 h-4 cursor-grab" />
               </div>
 
               <div className="flex-1 min-w-0 relative">
-                <input
+                <Input
                   type="text"
                   value={item}
                   onChange={(e) => updateItem(idx, e.target.value)}
                   placeholder={`Benefit item ${idx + 1}...`}
-                  className="w-full bg-slate-950 border border-slate-700 rounded-md px-3 py-1.5 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-brand-500 transition-all pr-12"
+                  className="text-xs pr-12"
                 />
                 <span
-                  className={`absolute right-2 top-2 text-[9px] font-mono ${
-                    isOver ? 'text-amber-400 font-bold' : 'text-slate-500'
+                  className={`absolute right-2 top-2.5 text-[9px] font-mono ${
+                    isOver ? 'text-amber-600 font-bold' : 'text-muted-foreground'
                   }`}
                 >
                   {item.length}/{ITEM_SOFT_CAP}
@@ -82,33 +85,39 @@ export const BenefitsSection: React.FC<BenefitsSectionProps> = ({ data, onChange
               </div>
 
               <div className="flex items-center space-x-1">
-                <button
+                <Button
                   type="button"
+                  variant="ghost"
+                  size="icon"
                   onClick={() => moveItem(idx, 'up')}
                   disabled={idx === 0}
-                  className="p-1 text-slate-400 hover:text-slate-200 disabled:opacity-30 disabled:hover:text-slate-400 rounded"
+                  className="h-7 w-7 text-muted-foreground hover:text-foreground disabled:opacity-30"
                   title="Move up"
                 >
                   <ArrowUp className="w-3.5 h-3.5" />
-                </button>
-                <button
+                </Button>
+                <Button
                   type="button"
+                  variant="ghost"
+                  size="icon"
                   onClick={() => moveItem(idx, 'down')}
                   disabled={idx === items.length - 1}
-                  className="p-1 text-slate-400 hover:text-slate-200 disabled:opacity-30 disabled:hover:text-slate-400 rounded"
+                  className="h-7 w-7 text-muted-foreground hover:text-foreground disabled:opacity-30"
                   title="Move down"
                 >
                   <ArrowDown className="w-3.5 h-3.5" />
-                </button>
-                <button
+                </Button>
+                <Button
                   type="button"
+                  variant="ghost"
+                  size="icon"
                   onClick={() => removeItem(idx)}
                   disabled={items.length <= MIN_ITEMS}
-                  className="p-1 text-slate-400 hover:text-red-400 disabled:opacity-30 disabled:hover:text-slate-400 rounded"
+                  className="h-7 w-7 text-muted-foreground hover:text-destructive disabled:opacity-30"
                   title={items.length <= MIN_ITEMS ? `Minimum ${MIN_ITEMS} items required` : 'Delete item'}
                 >
                   <Trash2 className="w-3.5 h-3.5" />
-                </button>
+                </Button>
               </div>
             </div>
           );
@@ -117,17 +126,19 @@ export const BenefitsSection: React.FC<BenefitsSectionProps> = ({ data, onChange
 
       <div className="flex justify-between items-center pt-1">
         {items.length < MIN_ITEMS && (
-          <p className="text-xs text-amber-400">At least {MIN_ITEMS} items are required for export.</p>
+          <p className="text-xs text-amber-600">At least {MIN_ITEMS} items are required for export.</p>
         )}
-        <button
+        <Button
           type="button"
+          variant="outline"
+          size="sm"
           onClick={addItem}
           disabled={items.length >= MAX_ITEMS}
-          className="inline-flex items-center space-x-1.5 text-xs font-medium text-brand-400 hover:text-brand-300 disabled:opacity-40 disabled:hover:text-brand-400 bg-brand-500/10 hover:bg-brand-500/20 px-3 py-1.5 rounded-md transition-colors"
+          className="ml-auto text-primary hover:text-primary border-primary/30 hover:bg-primary/10"
         >
-          <Plus className="w-3.5 h-3.5" />
-          <span>Add Benefit Item</span>
-        </button>
+          <Plus className="w-3.5 h-3.5 mr-1" />
+          Add Benefit Item
+        </Button>
       </div>
     </div>
   );

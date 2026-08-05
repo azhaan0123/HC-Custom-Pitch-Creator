@@ -7,8 +7,9 @@ interface PitchPage1Props {
 
 export const PitchPage1: React.FC<PitchPage1Props> = ({ data }) => {
   const { brand, offerIntro, teamBenefits, howItWorks, whyEmployers } = data;
+  const accentColor = brand.accentColor || '#ef9493';
 
-  // Format Why Employers paragraph with bold pink leads
+  // Format Why Employers paragraph with bold accent leads
   const renderWhyEmployers = (text: string) => {
     if (!text) return null;
     const paragraphs = text.split(/\n\s*\n/);
@@ -21,7 +22,7 @@ export const PitchPage1: React.FC<PitchPage1Props> = ({ data }) => {
         return (
           <div key={i} className="py-2 border-b border-slate-100 last:border-b-0">
             <p className="text-[11.5px] leading-relaxed text-[#374151]">
-              <strong className="font-bold text-[#E31B54] mr-1">{lead}</strong>
+              <strong className="font-bold mr-1" style={{ color: accentColor }}>{lead}</strong>
               {body}
             </p>
           </div>
@@ -37,8 +38,8 @@ export const PitchPage1: React.FC<PitchPage1Props> = ({ data }) => {
 
   return (
     <div className="document-page flex flex-col justify-between select-none relative overflow-hidden bg-white text-[#111827]">
-      {/* Top Red Accent Bar */}
-      <div className="w-full h-1 bg-[#E31B54] -mt-1 -mx-1 mb-5" />
+      {/* Top Accent Bar */}
+      <div className="w-full h-1 -mt-1 -mx-1 mb-5" style={{ backgroundColor: accentColor }} />
 
       <div className="flex-1 flex flex-col justify-between">
         {/* Header Branding */}
@@ -50,7 +51,7 @@ export const PitchPage1: React.FC<PitchPage1Props> = ({ data }) => {
               className="max-h-12 max-w-[240px] object-contain mb-3"
             />
           ) : (
-            <p className="text-base font-bold italic text-[#E31B54] mb-3">
+            <p className="text-base font-bold italic mb-3" style={{ color: accentColor }}>
               {brand.practiceName ? `${brand.practiceName}` : '[Your Practice Name / Logo]'}
             </p>
           )}
@@ -59,7 +60,7 @@ export const PitchPage1: React.FC<PitchPage1Props> = ({ data }) => {
           <h1 className="text-2xl font-extrabold text-[#111827] tracking-tight leading-tight">
             Better healthcare for your team.
           </h1>
-          <h1 className="text-2xl font-extrabold text-[#E31B54] tracking-tight leading-tight">
+          <h1 className="text-2xl font-extrabold tracking-tight leading-tight" style={{ color: accentColor }}>
             Lower costs for your business.
           </h1>
         </div>
@@ -81,7 +82,7 @@ export const PitchPage1: React.FC<PitchPage1Props> = ({ data }) => {
         {/* Section 2: What Your Team Gets */}
         <section className="mb-4">
           <h2 className="text-sm font-bold text-[#111827]">What your team gets</h2>
-          <div className="w-7 h-0.5 bg-[#E31B54] my-1 mb-2" />
+          <div className="w-7 h-0.5 my-1 mb-2" style={{ backgroundColor: accentColor }} />
           <ul className="space-y-1.5 text-[11.5px] text-[#374151]">
             {teamBenefits.items && teamBenefits.items.length > 0 ? (
               teamBenefits.items.map((benefit, idx) => (
@@ -94,7 +95,7 @@ export const PitchPage1: React.FC<PitchPage1Props> = ({ data }) => {
               <li className="text-slate-400 italic">Add at least 3 benefit items...</li>
             )}
           </ul>
-          <p className="text-[10px] italic text-[#E31B54] font-medium mt-2">
+          <p className="text-[10px] italic font-medium mt-2" style={{ color: accentColor }}>
             [Add or remove services based on your practice]
           </p>
         </section>
@@ -102,14 +103,14 @@ export const PitchPage1: React.FC<PitchPage1Props> = ({ data }) => {
         {/* Section 3: How It Works Table */}
         <section className="mb-4">
           <h2 className="text-sm font-bold text-[#111827]">How it works</h2>
-          <div className="w-7 h-0.5 bg-[#E31B54] my-1 mb-2.5" />
+          <div className="w-7 h-0.5 my-1 mb-2.5" style={{ backgroundColor: accentColor }} />
           
-          <div className="border border-[#FCE4EC] rounded-xl overflow-hidden shadow-xs">
+          <div className="border border-slate-200 rounded-xl overflow-hidden shadow-xs">
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="bg-[#E31B54] text-white font-bold text-[11px]">
-                  <th className="py-2 px-3.5 w-[28%] border-r border-[#E83E6F]">Step</th>
-                  <th className="py-2 px-3.5 w-[52%] border-r border-[#E83E6F] text-center">What happens</th>
+                <tr className="text-white font-bold text-[11px]" style={{ backgroundColor: accentColor }}>
+                  <th className="py-2 px-3.5 w-[28%] border-r border-white/20">Step</th>
+                  <th className="py-2 px-3.5 w-[52%] border-r border-white/20 text-center">What happens</th>
                   <th className="py-2 px-3.5 w-[20%] text-center">Timeline</th>
                 </tr>
               </thead>

@@ -15,8 +15,10 @@ import {
   HelpCircle,
   PhoneCall,
   ChevronDown,
-  ChevronUp,
 } from 'lucide-react';
+import { Card } from '../ui/card';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '../ui/collapsible';
+import { cn } from '@/lib/utils';
 
 interface FormEditorProps {
   data: PitchData;
@@ -101,41 +103,54 @@ export const FormEditor: React.FC<FormEditorProps> = ({ data, onChange, errors }
         const isOpen = openSections[section.id];
 
         return (
-          <div
+          <Collapsible
             key={section.id}
-            className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden shadow-lg transition-all duration-200"
+            open={isOpen}
+            onOpenChange={() => toggleSection(section.id)}
+            className={cn("transition-all duration-200", isOpen ? "relative z-20" : "z-0")}
           >
-            <button
-              type="button"
-              onClick={() => toggleSection(section.id)}
-              className="w-full flex items-center justify-between p-4 text-left hover:bg-slate-850 transition-colors"
-            >
-              <div className="flex items-center space-x-3">
-                <div className="w-8 h-8 rounded-lg bg-slate-800 border border-slate-700 flex items-center justify-center text-brand-400">
-                  <Icon className="w-4 h-4" />
-                </div>
-                <div>
-                  <h3 className="text-sm font-semibold text-slate-100 flex items-center space-x-2">
-                    <span>{section.title}</span>
-                    {section.isValid && (
-                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 inline-block" />
-                    )}
-                  </h3>
-                  <p className="text-[11px] text-slate-400">{section.subtitle}</p>
-                </div>
-              </div>
+            <Card className={cn(
+              "border border-[#DFE1E6] bg-white rounded-xl shadow-[0_1px_3px_rgba(9,30,66,0.06)] hover:shadow-[0_4px_12px_rgba(9,30,66,0.08)] transition-all duration-200",
+              isOpen ? "overflow-visible" : "overflow-hidden"
+            )}>
+              <CollapsibleTrigger asChild>
+                <button
+                  type="button"
+                  className="w-full flex items-center justify-between p-4 text-left hover:bg-[#F4F5F7]/80 transition-colors group"
+                >
+                  <div className="flex items-center space-x-3.5">
+                    <Icon className="w-5.5 h-5.5 text-primary shrink-0 group-hover:scale-110 transition-transform duration-200" />
+                    <div>
+                      <h3 className="text-sm font-semibold text-[#172B4D] flex items-center space-x-2">
+                        <span>{section.title}</span>
+                        {section.isValid ? (
+                          <span className="bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1] px-2 py-0.5 text-[10px] rounded-full font-semibold inline-flex items-center space-x-1">
+                            <CheckCircle2 className="w-3 h-3 text-[#006644]" />
+                            <span>Complete</span>
+                          </span>
+                        ) : (
+                          <span className="bg-[#FFFAE6] text-[#FF8B00] border border-[#FFE380] px-2 py-0.5 text-[10px] rounded-full font-semibold inline-flex items-center">
+                            <span>Pending</span>
+                          </span>
+                        )}
+                      </h3>
+                      <p className="text-xs text-[#6B778C] font-normal mt-0.5">{section.subtitle}</p>
+                    </div>
+                  </div>
 
-              <div className="flex items-center space-x-2 text-slate-400">
-                {isOpen ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
-              </div>
-            </button>
+                  <div className="flex items-center space-x-2 text-[#6B778C]">
+                    <ChevronDown className={`w-4 h-4 transition-transform duration-300 ease-spring ${isOpen ? 'rotate-180 text-[#172B4D]' : ''}`} />
+                  </div>
+                </button>
+              </CollapsibleTrigger>
 
-            {isOpen && (
-              <div className="p-4 pt-1 border-t border-slate-800/60 bg-slate-950/40">
-                {section.component}
-              </div>
-            )}
-          </div>
+              <CollapsibleContent>
+                <div className="p-4 sm:p-5 border-t border-[#DFE1E6]/70 bg-[#FAFBFC] rounded-b-xl">
+                  {section.component}
+                </div>
+              </CollapsibleContent>
+            </Card>
+          </Collapsible>
         );
       })}
     </div>

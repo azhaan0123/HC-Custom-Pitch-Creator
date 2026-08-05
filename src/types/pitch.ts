@@ -1,6 +1,7 @@
 export interface BrandConfig {
   practiceName: string;
   logoUrl?: string;
+  accentColor?: string;
 }
 
 export interface OfferIntro {
@@ -36,6 +37,8 @@ export interface ContactInfo {
   contractTerms: string;
   websiteUrl: string;
   qrCodeUrl?: string;
+  qrColorMode?: 'black' | 'accent' | 'custom';
+  qrCustomColor?: string;
 }
 
 export interface PitchData {

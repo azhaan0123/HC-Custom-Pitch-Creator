@@ -11,6 +11,7 @@ export const pitchSchema = z.object({
   brand: z.object({
     practiceName: z.string().min(1, 'Practice name is required').max(60, 'Practice name must be 60 characters or less'),
     logoUrl: z.string().optional(),
+    accentColor: z.string().optional(),
   }),
   offerIntro: z.object({
     body: z.string().min(10, 'Offer intro must be at least 10 characters'),
@@ -38,6 +39,8 @@ export const pitchSchema = z.object({
     contractTerms: z.string().min(1, 'Contract terms are required'),
     websiteUrl: z.string().optional(),
     qrCodeUrl: z.string().optional(),
+    qrColorMode: z.enum(['black', 'accent', 'custom']).optional(),
+    qrCustomColor: z.string().optional(),
   }),
 });
 
