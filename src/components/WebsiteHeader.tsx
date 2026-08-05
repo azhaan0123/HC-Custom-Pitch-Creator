@@ -1,6 +1,5 @@
 import React from 'react';
-import { Shield, Sparkles, HelpCircle, User, ExternalLink } from 'lucide-react';
-import { Button } from './ui/button';
+import { HelpCircle, ExternalLink } from 'lucide-react';
 
 export const WebsiteHeader: React.FC = () => {
   return (

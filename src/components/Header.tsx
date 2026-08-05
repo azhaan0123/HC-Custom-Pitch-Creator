@@ -1,6 +1,6 @@
 import React from 'react';
 import { ViewMode } from '../types/pitch';
-import { Download, Columns, Edit3, Eye, RotateCcw, Sparkles } from 'lucide-react';
+import { Download, Columns, Edit3, Eye, RotateCcw } from 'lucide-react';
 import { Button } from './ui/button';
 import { cn } from '@/lib/utils';
 

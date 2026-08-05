@@ -11,7 +11,7 @@ interface BenefitsSectionProps {
   errors?: Record<string, string>;
 }
 
-export const BenefitsSection: React.FC<BenefitsSectionProps> = ({ data, onChange, errors }) => {
+export const BenefitsSection: React.FC<BenefitsSectionProps> = ({ data, onChange }) => {
   const items = data.teamBenefits.items || [];
   const MIN_ITEMS = 3;
   const MAX_ITEMS = 8;

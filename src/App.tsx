@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { usePitchForm } from './hooks/usePitchForm';
 import { Header } from './components/Header';
 import { FormEditor } from './components/FormEditor/FormEditor';

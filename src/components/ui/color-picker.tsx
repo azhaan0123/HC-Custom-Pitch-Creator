@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { ChevronDown, Check, RotateCcw, Palette, Sparkles, Sliders, Pipette } from 'lucide-react';
+import { ChevronDown, Check, RotateCcw, Palette, Sliders, Pipette } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface ColorPickerProps {

@@ -13,7 +13,7 @@ interface ProcessSectionProps {
   errors?: Record<string, string>;
 }
 
-export const ProcessSection: React.FC<ProcessSectionProps> = ({ data, onChange, errors }) => {
+export const ProcessSection: React.FC<ProcessSectionProps> = ({ data, onChange }) => {
   const steps = data.howItWorks.steps || [];
   const MIN_STEPS = 3;
   const MAX_STEPS = 6;

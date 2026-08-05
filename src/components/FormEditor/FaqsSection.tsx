@@ -1,6 +1,6 @@
 import React from 'react';
 import { PitchData, FAQItem } from '../../types/pitch';
-import { Plus, Trash2, HelpCircle, MessageSquare } from 'lucide-react';
+import { Plus, Trash2, HelpCircle } from 'lucide-react';
 import { Input } from '../ui/input';
 import { Label } from '../ui/label';
 import { Textarea } from '../ui/textarea';

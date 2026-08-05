@@ -12,7 +12,7 @@ interface WhyEmployersSectionProps {
   errors?: Record<string, string>;
 }
 
-export const WhyEmployersSection: React.FC<WhyEmployersSectionProps> = ({ data, onChange, errors }) => {
+export const WhyEmployersSection: React.FC<WhyEmployersSectionProps> = ({ data, onChange }) => {
   const charCount = data.whyEmployers.subtext.length;
   const SOFT_CAP = 800;
   const isOverCap = charCount > SOFT_CAP;
