@@ -2,7 +2,7 @@ import { PitchData } from '../types/pitch';
 
 export const defaultPitchData: PitchData = {
   brand: {
-    practiceName: 'Riverside Direct Primary Care',
+    practiceName: 'Example Direct Primary Care',
     logoUrl: '',
     accentColor: '#ef9493',
   },
@@ -57,14 +57,64 @@ Your costs go down over time. Fewer ER visits, fewer specialist referrals, and f
 
 Your people notice. Healthcare that employees actually use and appreciate is a real benefit that helps you attract and keep good people.`,
   },
+  vignettes: {
+    title: 'What happens when your employees can actually reach their doctor.',
+    items: [
+      {
+        id: 'v1',
+        trigger: 'An employee texts at 8am with back pain.',
+        outcome: 'Seen by 10am. No half-day off work. No urgent care bill.',
+      },
+      {
+        id: 'v2',
+        trigger: "An employee's child spikes a fever at night.",
+        outcome: 'They call our nurse line. Handled over the phone. No ER visit.',
+      },
+      {
+        id: 'v3',
+        trigger: 'An employee managing diabetes gets monthly check-ins.',
+        outcome: 'A1C improves over time. Fewer sick days. Fewer complications down the road.',
+      },
+      {
+        id: 'v4',
+        trigger: 'An employee needs stitches at work.',
+        outcome: 'Comes to us directly. Taken care of the same day. No insurance claim filed.',
+      },
+    ],
+  },
+  faqs: {
+    title: 'Questions we hear from employers.',
+    items: [
+      {
+        id: 'faq-1',
+        question: 'Does this replace our insurance?',
+        answer: 'No. We cover primary care. Your employees keep their insurance for everything else. Most employers we work with pair this with a high-deductible plan, which brings their premiums down.',
+      },
+      {
+        id: 'faq-2',
+        question: 'What if our employees already have a doctor they like?',
+        answer: 'That is completely fine. We work alongside their existing care. No one is required to switch. What we find is that most employees start using us for the convenience and the access, and it becomes their preferred first call over time.',
+      },
+      {
+        id: 'faq-3',
+        question: 'How will we know it is working?',
+        answer: 'We share quarterly reports with you covering engagement, utilization, cost savings, and health outcomes. You will always have full visibility into what your employees are getting and what value is being delivered.',
+      },
+      {
+        id: 'faq-4',
+        question: 'What does this cost us?',
+        answer: 'We will walk you through the pricing when we meet. It depends on your team size and what you need. What we can tell you now is that for most employers, the membership cost is a fraction of what a single ER visit costs per employee.',
+      },
+    ],
+  },
   contact: {
-    nameTitle: 'Dr. Sarah Jenkins, MD — Founder & Medical Director',
-    practiceName: 'Riverside Direct Primary Care',
-    phone: '(555) 839-2041',
-    email: 'care@riversidedirectcare.com',
-    address: '104 Health Science Pkwy, Suite 200, Austin, TX 78701',
+    nameTitle: 'Jane Doe, MD — Founder & Medical Director',
+    practiceName: 'Example Direct Primary Care',
+    phone: '(555) 000-0000',
+    email: 'care@exampledpc.com',
+    address: '100 Medical Center Pkwy, Suite 100, City, ST 00000',
     contractTerms: '12-month agreement with a 60-day cancellation clause',
-    websiteUrl: 'https://www.riversidedirectcare.com',
+    websiteUrl: 'https://www.exampledpc.com',
     qrColorMode: 'black',
     qrCustomColor: '#ef9493',
   },
@@ -74,11 +124,11 @@ export const samplePresets: Record<string, PitchData> = {
   default: defaultPitchData,
   metro: {
     brand: {
-      practiceName: 'Apex Health DPC',
+      practiceName: 'Example DPC',
       logoUrl: '',
     },
     offerIntro: {
-      body: 'Apex Health provides high-touch, priority healthcare directly to your staff. Eliminate standard medical friction with direct physician access and 24/7 telehealth.',
+      body: 'Example DPC provides high-touch, priority healthcare directly to your staff. Eliminate standard medical friction with direct physician access and 24/7 telehealth.',
     },
     teamBenefits: {
       items: [
@@ -112,21 +162,21 @@ export const samplePresets: Record<string, PitchData> = {
       ],
     },
     whyEmployers: {
-      title: 'Why leading companies partner with Apex Health',
+      title: 'Why leading companies partner with Example DPC',
       subtext: `Drastically Reduced Absenteeism. Virtual-first primary care resolves over 85% of routine concerns in under 15 minutes, keeping employees focused and supported.
 
-Substantial Premium Savings. Pairing Apex Health with high-deductible plans reduces total health plan expense by 20–35% annually.
+Substantial Premium Savings. Pairing Example DPC with high-deductible plans reduces total health plan expense by 20–35% annually.
 
 Employee Retention Advantage. A dedicated doctor is ranked as a top 3 valued perk by modern workforce surveys.`,
     },
     contact: {
-      nameTitle: 'Marcus Vance — Director of Employer Partnerships',
-      practiceName: 'Apex Health DPC',
-      phone: '(800) 555-0199',
-      email: 'partnerships@apexhealthdpc.com',
-      address: '500 Technology Square, Suite 400, Chicago, IL 60601',
+      nameTitle: 'Jane Doe — Director of Employer Partnerships',
+      practiceName: 'Example DPC',
+      phone: '(800) 555-0000',
+      email: 'partnerships@exampledpc.com',
+      address: '500 Technology Square, Suite 400, City, ST 00000',
       contractTerms: 'Flexible month-to-month membership with 30-day notice',
-      websiteUrl: 'https://www.apexhealthdpc.com',
+      websiteUrl: 'https://www.exampledpc.com',
     },
   },
 };

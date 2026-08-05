@@ -62,7 +62,7 @@ export const HeaderSection: React.FC<HeaderSectionProps> = ({ data, onChange, er
             maxLength={60}
             value={data.brand.practiceName}
             onChange={(e) => onChange('brand.practiceName', e.target.value)}
-            placeholder="e.g. Riverside Direct Primary Care"
+            placeholder="e.g. Example Direct Primary Care"
           />
           <Building2 className="w-4 h-4 text-muted-foreground absolute right-3 top-2.5 pointer-events-none" />
         </div>

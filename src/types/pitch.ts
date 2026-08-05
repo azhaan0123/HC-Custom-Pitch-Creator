@@ -41,12 +41,37 @@ export interface ContactInfo {
   qrCustomColor?: string;
 }
 
+export interface VignetteItem {
+  id: string;
+  trigger: string;
+  outcome: string;
+}
+
+export interface EmployeeVignettes {
+  title?: string;
+  items: VignetteItem[];
+}
+
+export interface FAQItem {
+  id: string;
+  question: string;
+  answer: string;
+  isCustom?: boolean;
+}
+
+export interface EmployerFAQs {
+  title?: string;
+  items: FAQItem[];
+}
+
 export interface PitchData {
   brand: BrandConfig;
   offerIntro: OfferIntro;
   teamBenefits: TeamBenefits;
   howItWorks: HowItWorks;
   whyEmployers: WhyEmployers;
+  vignettes?: EmployeeVignettes;
+  faqs?: EmployerFAQs;
   contact: ContactInfo;
 }
 

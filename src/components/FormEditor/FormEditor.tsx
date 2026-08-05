@@ -5,6 +5,8 @@ import { OfferSection } from './OfferSection';
 import { BenefitsSection } from './BenefitsSection';
 import { ProcessSection } from './ProcessSection';
 import { WhyEmployersSection } from './WhyEmployersSection';
+import { VignettesSection } from './VignettesSection';
+import { FaqsSection } from './FaqsSection';
 import { ContactSection } from './ContactSection';
 import {
   Building2,
@@ -15,6 +17,8 @@ import {
   HelpCircle,
   PhoneCall,
   ChevronDown,
+  Zap,
+  MessageSquare,
 } from 'lucide-react';
 import { Card } from '../ui/card';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '../ui/collapsible';
@@ -33,6 +37,8 @@ export const FormEditor: React.FC<FormEditorProps> = ({ data, onChange, errors }
     benefits: true,
     process: true,
     why: true,
+    vignettes: true,
+    faqs: true,
     contact: true,
   });
 
@@ -80,6 +86,22 @@ export const FormEditor: React.FC<FormEditorProps> = ({ data, onChange, errors }
       subtitle: 'Key Employer Value Propositions (~800 chars)',
       isValid: Boolean(data.whyEmployers.subtext.trim()),
       component: <WhyEmployersSection data={data} onChange={onChange} errors={errors} />,
+    },
+    {
+      id: 'vignettes',
+      title: 'Employee Care Scenarios',
+      icon: Zap,
+      subtitle: 'What happens when employees reach their doctor',
+      isValid: Boolean((data.vignettes?.items?.length || 0) > 0),
+      component: <VignettesSection data={data} onChange={onChange} errors={errors} />,
+    },
+    {
+      id: 'faqs',
+      title: 'Employer FAQs',
+      icon: MessageSquare,
+      subtitle: 'Questions & answers we hear from employers',
+      isValid: Boolean((data.faqs?.items?.length || 0) > 0),
+      component: <FaqsSection data={data} onChange={onChange} errors={errors} />,
     },
     {
       id: 'contact',

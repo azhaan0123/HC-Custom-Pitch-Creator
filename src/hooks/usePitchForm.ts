@@ -34,7 +34,7 @@ export function usePitchForm() {
     return () => clearTimeout(timer);
   }, [formData]);
 
-  // Nested property updater (e.g., updateField('brand.practiceName', 'Apex Care'))
+  // Nested property updater (e.g., updateField('brand.practiceName', 'Example DPC'))
   const updateField = useCallback((path: string, value: any) => {
     setFormData((prev) => {
       const keys = path.split('.');

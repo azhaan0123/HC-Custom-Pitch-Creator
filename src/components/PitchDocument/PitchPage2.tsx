@@ -1,6 +1,6 @@
 import React from 'react';
 import { PitchData } from '../../types/pitch';
-import { generateQRCodeSVG } from '../../utils/qrGenerator';
+import { useQRCode } from '../../utils/qrGenerator';
 
 interface PitchPage2Props {
   data: PitchData;
@@ -19,58 +19,80 @@ export const PitchPage2: React.FC<PitchPage2Props> = ({ data }) => {
     qrFillColor = contact.qrCustomColor || '#ef9493';
   }
 
-  // Generate Nayuki QR Code for website URL
-  const qrTargetUrl = contact.websiteUrl || 'https://www.riversidedirectcare.com';
-  const qrSvg = generateQRCodeSVG(qrTargetUrl, { fillColor: qrFillColor, border: 2 });
+  // Generate QR Code using Soldair node-qrcode library
+  const qrTargetUrl = contact.websiteUrl || 'https://www.exampledpc.com';
+  const qrSvg = useQRCode(qrTargetUrl, { fillColor: qrFillColor, margin: 2 });
 
-  const vignettes = [
-    {
-      trigger: 'An employee texts at 8am with back pain.',
-      outcome: 'Seen by 10am. No half-day off work. No urgent care bill.',
-    },
-    {
-      trigger: "An employee's child spikes a fever at night.",
-      outcome: 'They call our nurse line. Handled over the phone. No ER visit.',
-    },
-    {
-      trigger: 'An employee managing diabetes gets monthly check-ins.',
-      outcome: 'A1C improves over time. Fewer sick days. Fewer complications down the road.',
-    },
-    {
-      trigger: 'An employee needs stitches at work.',
-      outcome: 'Comes to us directly. Taken care of the same day. No insurance claim filed.',
-    },
-  ];
+  // Dynamic Vignettes / Employee Care Scenarios
+  const vignettesTitle = data.vignettes?.title || 'What happens when your employees can actually reach their doctor.';
+  const vignettesList = data.vignettes?.items && data.vignettes.items.length > 0
+    ? data.vignettes.items
+    : [
+        {
+          id: 'v1',
+          trigger: 'An employee texts at 8am with back pain.',
+          outcome: 'Seen by 10am. No half-day off work. No urgent care bill.',
+        },
+        {
+          id: 'v2',
+          trigger: "An employee's child spikes a fever at night.",
+          outcome: 'They call our nurse line. Handled over the phone. No ER visit.',
+        },
+        {
+          id: 'v3',
+          trigger: 'An employee managing diabetes gets monthly check-ins.',
+          outcome: 'A1C improves over time. Fewer sick days. Fewer complications down the road.',
+        },
+        {
+          id: 'v4',
+          trigger: 'An employee needs stitches at work.',
+          outcome: 'Comes to us directly. Taken care of the same day. No insurance claim filed.',
+        },
+      ];
 
-  const faqs = [
-    {
-      q: 'Does this replace our insurance?',
-      a: 'No. We cover primary care. Your employees keep their insurance for everything else. Most employers we work with pair this with a high-deductible plan, which brings their premiums down.',
-      isCustom: false,
-    },
-    {
-      q: 'What if our employees already have a doctor they like?',
-      a: 'That is completely fine. We work alongside their existing care. No one is required to switch. What we find is that most employees start using us for the convenience and the access, and it becomes their preferred first call over time.',
-      isCustom: false,
-    },
-    {
-      q: 'How will we know it is working?',
-      a: 'We share quarterly reports with you covering engagement, utilization, cost savings, and health outcomes. You will always have full visibility into what your employees are getting and what value is being delivered.',
-      isCustom: false,
-    },
-    {
-      q: 'What is the commitment?',
-      a: contact.contractTerms
-        ? contact.contractTerms
-        : '[Insert your contract terms, e.g., 12-month agreement with a 60-day cancellation clause]',
-      isCustom: true,
-    },
-    {
-      q: 'What does this cost us?',
-      a: 'We will walk you through the pricing when we meet. It depends on your team size and what you need. What we can tell you now is that for most employers, the membership cost is a fraction of what a single ER visit costs per employee.',
-      isCustom: false,
-    },
-  ];
+  // Dynamic FAQs / Employer Questions
+  const faqsTitle = data.faqs?.title || 'Questions we hear from employers.';
+  const faqsList = data.faqs?.items && data.faqs.items.length > 0
+    ? data.faqs.items.map((item) => ({
+        id: item.id,
+        q: item.question,
+        a: item.answer,
+        isCustom: item.isCustom || false,
+      }))
+    : [
+        {
+          id: 'faq-1',
+          q: 'Does this replace our insurance?',
+          a: 'No. We cover primary care. Your employees keep their insurance for everything else. Most employers we work with pair this with a high-deductible plan, which brings their premiums down.',
+          isCustom: false,
+        },
+        {
+          id: 'faq-2',
+          q: 'What if our employees already have a doctor they like?',
+          a: 'That is completely fine. We work alongside their existing care. No one is required to switch. What we find is that most employees start using us for the convenience and the access, and it becomes their preferred first call over time.',
+          isCustom: false,
+        },
+        {
+          id: 'faq-3',
+          q: 'How will we know it is working?',
+          a: 'We share quarterly reports with you covering engagement, utilization, cost savings, and health outcomes. You will always have full visibility into what your employees are getting and what value is being delivered.',
+          isCustom: false,
+        },
+        {
+          id: 'faq-4',
+          q: 'What is the commitment?',
+          a: contact.contractTerms
+            ? contact.contractTerms
+            : '12-month agreement with a 60-day cancellation clause',
+          isCustom: true,
+        },
+        {
+          id: 'faq-5',
+          q: 'What does this cost us?',
+          a: 'We will walk you through the pricing when we meet. It depends on your team size and what you need. What we can tell you now is that for most employers, the membership cost is a fraction of what a single ER visit costs per employee.',
+          isCustom: false,
+        },
+      ];
 
   return (
     <div className="document-page flex flex-col justify-between select-none relative overflow-hidden bg-white text-[#111827]">
@@ -78,15 +100,15 @@ export const PitchPage2: React.FC<PitchPage2Props> = ({ data }) => {
       <div className="w-full h-1 -mt-1 -mx-1 mb-5" style={{ backgroundColor: accentColor }} />
 
       <div className="flex-1 flex flex-col justify-between">
-        {/* Section 1: What happens when employees can reach their doctor */}
+        {/* Section 1: Employee Care Scenarios */}
         <section className="mb-4">
           <h1 className="text-xl font-extrabold text-[#111827] tracking-tight leading-snug mb-3">
-            What happens when your employees<br />can actually reach their doctor.
+            {vignettesTitle}
           </h1>
 
           <div className="space-y-3 pl-1">
-            {vignettes.map((v, idx) => (
-              <div key={idx} className="border-l-2 pl-3.5 py-0.5" style={{ borderColor: accentColor }}>
+            {vignettesList.map((v, idx) => (
+              <div key={v.id || idx} className="border-l-2 pl-3.5 py-0.5" style={{ borderColor: accentColor }}>
                 <p className="text-[11px] leading-snug text-[#374151]">
                   <strong className="font-bold text-[#111827] mr-1">{v.trigger}</strong>
                   {v.outcome}
@@ -94,10 +116,6 @@ export const PitchPage2: React.FC<PitchPage2Props> = ({ data }) => {
               </div>
             ))}
           </div>
-
-          <p className="text-[10px] italic font-medium mt-3" style={{ color: accentColor }}>
-            [Add or replace with scenarios relevant to your practice]
-          </p>
         </section>
 
         {/* Dotted Horizontal Divider */}
@@ -105,12 +123,12 @@ export const PitchPage2: React.FC<PitchPage2Props> = ({ data }) => {
 
         {/* Section 2: Questions we hear from employers */}
         <section className="mb-4">
-          <h2 className="text-base font-extrabold text-[#111827]">Questions we hear from employers.</h2>
+          <h2 className="text-base font-extrabold text-[#111827]">{faqsTitle}</h2>
           <div className="w-7 h-0.5 my-1 mb-3" style={{ backgroundColor: accentColor }} />
 
           <div className="space-y-2.5">
-            {faqs.map((faq, idx) => (
-              <div key={idx} className="text-[11px] leading-relaxed">
+            {faqsList.map((faq, idx) => (
+              <div key={faq.id || idx} className="text-[11px] leading-relaxed">
                 <p className="font-bold text-[#111827] mb-0.5">
                   <span className="font-bold mr-1" style={{ color: accentColor }}>Q:</span>
                   {faq.q}

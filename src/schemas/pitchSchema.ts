@@ -7,6 +7,19 @@ export const processStepSchema = z.object({
   timeline: z.string().default(''),
 });
 
+export const vignetteItemSchema = z.object({
+  id: z.string(),
+  trigger: z.string().min(1, 'Trigger scenario is required'),
+  outcome: z.string().min(1, 'Outcome description is required'),
+});
+
+export const faqItemSchema = z.object({
+  id: z.string(),
+  question: z.string().min(1, 'Question is required'),
+  answer: z.string().min(1, 'Answer is required'),
+  isCustom: z.boolean().optional(),
+});
+
 export const pitchSchema = z.object({
   brand: z.object({
     practiceName: z.string().min(1, 'Practice name is required').max(60, 'Practice name must be 60 characters or less'),
@@ -30,6 +43,14 @@ export const pitchSchema = z.object({
     title: z.string().max(60, 'Title must be 60 characters or less').default('Why employers work with us'),
     subtext: z.string().min(10, 'Subtext must be at least 10 characters'),
   }),
+  vignettes: z.object({
+    title: z.string().optional(),
+    items: z.array(vignetteItemSchema).optional().default([]),
+  }).optional(),
+  faqs: z.object({
+    title: z.string().optional(),
+    items: z.array(faqItemSchema).optional().default([]),
+  }).optional(),
   contact: z.object({
     nameTitle: z.string().min(1, 'Name and Title are required'),
     practiceName: z.string().min(1, 'Practice Name is required'),

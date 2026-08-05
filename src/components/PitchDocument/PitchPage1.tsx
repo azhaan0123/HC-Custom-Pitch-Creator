@@ -95,9 +95,6 @@ export const PitchPage1: React.FC<PitchPage1Props> = ({ data }) => {
               <li className="text-slate-400 italic">Add at least 3 benefit items...</li>
             )}
           </ul>
-          <p className="text-[10px] italic font-medium mt-2" style={{ color: accentColor }}>
-            [Add or remove services based on your practice]
-          </p>
         </section>
 
         {/* Section 3: How It Works Table */}
@@ -144,7 +141,7 @@ export const PitchPage1: React.FC<PitchPage1Props> = ({ data }) => {
         {/* Section 4: Why Employers Work With Us */}
         <section className="mb-2">
           <h2 className="text-sm font-bold text-[#111827]">{whyEmployers.title || 'Why employers work with us'}</h2>
-          <div className="w-7 h-0.5 bg-[#E31B54] my-1 mb-1" />
+          <div className="w-7 h-0.5 my-1 mb-1" style={{ backgroundColor: accentColor }} />
           <div>{renderWhyEmployers(whyEmployers.subtext)}</div>
         </section>
       </div>

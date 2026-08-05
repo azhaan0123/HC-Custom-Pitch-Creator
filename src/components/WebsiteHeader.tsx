@@ -53,10 +53,10 @@ export const WebsiteHeader: React.FC = () => {
 
         <div className="flex items-center space-x-2 bg-[#FAFBFC] border border-[#DFE1E6] px-2.5 py-1 rounded-full shadow-2xs">
           <div className="w-5 h-5 rounded-full bg-primary/20 text-[#172B4D] flex items-center justify-center font-bold text-[10px]">
-            SJ
+            JD
           </div>
           <span className="text-xs font-semibold text-[#172B4D] hidden sm:inline-block">
-            Dr. Sarah Jenkins
+            Jane Doe
           </span>
           <span className="bg-[#E3FCEF] text-[#006644] text-[9px] font-bold px-1.5 py-0.2 rounded-full">
             DPC Pro

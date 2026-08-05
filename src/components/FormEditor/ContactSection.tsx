@@ -3,7 +3,7 @@ import { PitchData } from '../../types/pitch';
 import { User, Phone, Mail, MapPin, FileText, Globe } from 'lucide-react';
 import { Input } from '../ui/input';
 import { Label } from '../ui/label';
-import { generateQRCodeSVG } from '../../utils/qrGenerator';
+import { useQRCode } from '../../utils/qrGenerator';
 import { ColorPicker } from '../ui/color-picker';
 import { cn } from '@/lib/utils';
 
@@ -22,8 +22,8 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ data, onChange }
     qrFillColor = data.contact.qrCustomColor || '#ef9493';
   }
 
-  const qrTargetUrl = data.contact.websiteUrl || 'https://www.riversidedirectcare.com';
-  const qrPreviewSvg = generateQRCodeSVG(qrTargetUrl, { fillColor: qrFillColor, border: 2 });
+  const qrTargetUrl = data.contact.websiteUrl || 'https://www.exampledpc.com';
+  const qrPreviewSvg = useQRCode(qrTargetUrl, { fillColor: qrFillColor, margin: 2 });
 
   return (
     <div className="space-y-3">
@@ -36,7 +36,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ data, onChange }
             type="text"
             value={data.contact.nameTitle}
             onChange={(e) => onChange('contact.nameTitle', e.target.value)}
-            placeholder="e.g. Dr. Sarah Jenkins, MD — Founder"
+            placeholder="e.g. Jane Doe, MD — Founder"
             className="text-xs pr-8"
           />
           <User className="w-3.5 h-3.5 text-muted-foreground absolute right-3 top-2.5 pointer-events-none" />
@@ -178,7 +178,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ data, onChange }
             <div className="flex-1 min-w-0">
               <p className="text-xs font-semibold text-[#172B4D]">QR Code Generated</p>
               <p className="text-[10px] text-[#6B778C] truncate font-mono mt-0.5">
-                {data.contact.websiteUrl || 'https://www.riversidedirectcare.com'}
+                {data.contact.websiteUrl || 'https://www.exampledpc.com'}
               </p>
             </div>
           </div>
