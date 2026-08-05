@@ -3,7 +3,9 @@ import { usePitchForm } from './hooks/usePitchForm';
 import { Header } from './components/Header';
 import { FormEditor } from './components/FormEditor/FormEditor';
 import { PreviewContainer } from './components/PreviewContainer';
+import { ExportLeadDialog } from './components/ExportLeadDialog';
 import { exportPitchToPDF } from './utils/pdfExport';
+import { submitLeadData } from './services/leadCollection';
 import { ViewMode } from './types/pitch';
 import { CheckCircle2, AlertCircle } from 'lucide-react';
 import { TooltipProvider } from './components/ui/tooltip';
@@ -21,22 +23,38 @@ export function App() {
 
   const [viewMode, setViewMode] = useState<ViewMode>('split');
   const [isExporting, setIsExporting] = useState(false);
+  const [isLeadDialogOpen, setIsLeadDialogOpen] = useState(false);
   const [notification, setNotification] = useState<{
     type: 'success' | 'error';
     message: string;
   } | null>(null);
 
-  const handleExport = async () => {
+  const handleOpenExportDialog = () => {
     if (!isValid) return;
+    setIsLeadDialogOpen(true);
+  };
+
+  const handleLeadSubmitAndExport = async (name: string, email: string) => {
     setIsExporting(true);
     setNotification(null);
 
     try {
+      // 1. Dispatch lead payload to lead collection endpoint
+      await submitLeadData({
+        name,
+        email,
+        practiceName: formData.brand.practiceName,
+        timestamp: new Date().toISOString(),
+      });
+
+      // 2. Generate and download PDF
       await exportPitchToPDF(formData);
+
       setNotification({
         type: 'success',
         message: 'PDF exported successfully! Check your downloads folder.',
       });
+      setIsLeadDialogOpen(false);
     } catch (error) {
       console.error('PDF export failed:', error);
       setNotification({
@@ -52,6 +70,14 @@ export function App() {
   return (
     <TooltipProvider>
       <div className="h-screen w-screen bg-background text-foreground flex flex-col font-sans overflow-hidden">
+        {/* Email Lead Collection Modal */}
+        <ExportLeadDialog
+          isOpen={isLeadDialogOpen}
+          onClose={() => setIsLeadDialogOpen(false)}
+          onSubmit={handleLeadSubmitAndExport}
+          isExporting={isExporting}
+        />
+
         {/* Notification Toast */}
         {notification && (
           <div className="fixed bottom-6 right-6 z-50 animate-in fade-in-0 slide-in-from-bottom-5 duration-300">
@@ -78,7 +104,7 @@ export function App() {
           <Header
             viewMode={viewMode}
             setViewMode={setViewMode}
-            onExport={handleExport}
+            onExport={handleOpenExportDialog}
             isExporting={isExporting}
             isValid={isValid}
             onLoadPreset={loadPreset}
