@@ -22,6 +22,10 @@ export default function PitchCreatorApp() {
     setShowLeadDialog(true);
   }, []);
 
+  const togglePreviewMode = useCallback(() => {
+    setViewMode((prev) => (prev === 'preview' ? 'split' : 'preview'));
+  }, []);
+
   const handleLeadSubmitAndExport = useCallback(async (name: string, email: string) => {
     setIsExporting(true);
     try {
@@ -81,7 +85,12 @@ export default function PitchCreatorApp() {
                 viewMode === 'editor' && "hidden"
               )}
             >
-              <PreviewContainer data={previewData} isValid={isValid} />
+              <PreviewContainer
+                data={previewData}
+                isValid={isValid}
+                viewMode={viewMode}
+                onTogglePreviewMode={togglePreviewMode}
+              />
             </div>
           </div>
         </main>
@@ -97,4 +106,3 @@ export default function PitchCreatorApp() {
     </TooltipProvider>
   );
 }
-

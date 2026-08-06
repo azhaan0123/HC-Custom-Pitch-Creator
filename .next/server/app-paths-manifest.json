@@ -1,3 +1,4 @@
 {
+  "/page": "app/page.js",
   "/pitch-creator/page": "app/pitch-creator/page.js"
 }

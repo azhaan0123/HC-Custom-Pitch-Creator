@@ -5,7 +5,7 @@ import { PitchData } from './types';
 import { defaultPitchData, samplePresets } from './defaults';
 import { pitchSchema } from './schema';
 
-const STORAGE_KEY = 'dpc_pitch_builder_draft_v1';
+const STORAGE_KEY = 'dpc_pitch_builder_draft_v2';
 
 export function usePitchForm() {
   const [formData, setFormData] = useState<PitchData>(() => {

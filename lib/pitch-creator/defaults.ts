@@ -1,6 +1,7 @@
 import { PitchData } from './types';
 
-export const defaultPitchData: PitchData = {
+// Full sample dataset for the "Sample Data" preset button
+export const fullSamplePitchData: PitchData = {
   brand: {
     practiceName: 'Example Direct Primary Care',
     logoUrl: '',
@@ -120,8 +121,49 @@ Your people notice. Healthcare that employees actually use and appreciate is a r
   },
 };
 
+// Initial state: all fields empty by default except the practice name
+export const defaultPitchData: PitchData = {
+  brand: {
+    practiceName: 'Example Direct Primary Care',
+    logoUrl: '',
+    accentColor: '#ef9493',
+  },
+  offerIntro: {
+    body: '',
+  },
+  teamBenefits: {
+    items: [],
+  },
+  howItWorks: {
+    steps: [],
+  },
+  whyEmployers: {
+    title: 'Why employers work with us',
+    subtext: '',
+  },
+  vignettes: {
+    title: 'What happens when your employees can actually reach their doctor.',
+    items: [],
+  },
+  faqs: {
+    title: 'Questions we hear from employers.',
+    items: [],
+  },
+  contact: {
+    nameTitle: '',
+    practiceName: 'Example Direct Primary Care',
+    phone: '',
+    email: '',
+    address: '',
+    contractTerms: '',
+    websiteUrl: '',
+    qrColorMode: 'black',
+    qrCustomColor: '#ef9493',
+  },
+};
+
 export const samplePresets: Record<string, PitchData> = {
-  default: defaultPitchData,
+  default: fullSamplePitchData,
   metro: {
     brand: {
       practiceName: 'Example DPC',
