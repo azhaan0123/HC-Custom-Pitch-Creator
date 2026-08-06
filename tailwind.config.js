@@ -58,8 +58,8 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        sans: ['var(--font-geist-sans)', 'system-ui', 'sans-serif'],
-        doc: ['Inter', 'Arial', 'Helvetica', 'sans-serif'],
+        sans: ['Geist Sans', 'Geist', 'ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+        doc: ['Geist Sans', 'Geist', 'ui-sans-serif', 'system-ui', '-apple-system', 'sans-serif'],
       },
       transitionTimingFunction: {
         spring: 'cubic-bezier(0.34, 1.56, 0.64, 1)',

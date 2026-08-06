@@ -4,6 +4,12 @@
    Import this once alongside your globals.css (which should have @tailwind directives).
    ============================================================================ */
 
+@import "@fontsource/geist-sans";
+@import "@fontsource/geist-sans/400.css";
+@import "@fontsource/geist-sans/500.css";
+@import "@fontsource/geist-sans/600.css";
+@import "@fontsource/geist-sans/700.css";
+
 /* --------------------------------------------------------------------------
    CSS Custom Properties (Design Tokens)
    -------------------------------------------------------------------------- */
@@ -33,6 +39,15 @@
   --chart-3: 197 37% 24%;
   --chart-4: 43 74% 66%;
   --chart-5: 27 87% 67%;
+  --font-geist-sans: 'Geist Sans', 'Geist', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Force Geist font across all pitch creator elements */
+#pitch-document-container,
+#pitch-document-container *,
+.document-page,
+.document-page * {
+  font-family: 'Geist Sans', 'Geist', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
 }
 
 /* --------------------------------------------------------------------------
@@ -76,7 +91,7 @@
   box-shadow: 0 2px 12px rgba(9, 30, 66, 0.12), 0 0 1px rgba(9, 30, 66, 0.2);
   border-radius: 4px;
   overflow: hidden;
-  font-family: 'Geist Sans', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  font-family: 'Geist Sans', 'Geist', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

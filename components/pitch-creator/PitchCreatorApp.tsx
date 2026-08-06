@@ -44,7 +44,7 @@ export default function PitchCreatorApp() {
 
   return (
     <TooltipProvider delayDuration={200}>
-      <div className="h-screen max-h-screen flex flex-col bg-[#F4F5F7] font-['Geist_Sans',ui-sans-serif,system-ui,sans-serif] overflow-hidden">
+      <div className="h-screen max-h-screen flex flex-col bg-[#F4F5F7] font-sans overflow-hidden">
         {/* Main Pitch Builder Content with Generous Horizontal Padding */}
         <main className="flex-1 min-h-0 flex flex-col overflow-hidden px-6 sm:px-10 md:px-16 lg:px-24 xl:px-32 py-4 md:py-5">
           {/* Action Toolbar Header */}
