@@ -3,7 +3,7 @@
 import React from 'react';
 import { PitchData } from '@/lib/pitch-creator/types';
 import { useQRCode } from '@/lib/pitch-creator/qr-generator';
-import { hexToRgba } from '@/lib/pitch-creator/utils';
+import { blendHexColor } from '@/lib/pitch-creator/utils';
 
 interface PitchPage2Props {
   data: PitchData;
@@ -97,6 +97,11 @@ export const PitchPage2: React.FC<PitchPage2Props> = ({ data }) => {
         },
       ];
 
+  const qrBoxBg = blendHexColor(accentColor, '#ffffff', 0.08);
+  const qrBoxBorder = blendHexColor(accentColor, '#ffffff', 0.35);
+  const qrInnerBorder = blendHexColor(accentColor, '#ffffff', 0.25);
+  const qrDividerColor = blendHexColor(accentColor, '#ffffff', 0.4);
+
   return (
     <div className="document-page flex flex-col justify-between select-none relative overflow-hidden bg-white text-[#111827]">
       {/* Top Accent Bar */}
@@ -176,21 +181,21 @@ export const PitchPage2: React.FC<PitchPage2Props> = ({ data }) => {
               </p>
             </div>
 
-            {/* Right Soft QR Box (Dynamically matches accent color) */}
+            {/* Right Soft QR Box (Dynamically matches accent color using solid blend, preventing html2canvas color drop & text clipping) */}
             <div
-              className="p-3 rounded-2xl flex flex-col items-center justify-center text-center w-52 shadow-xs transition-colors"
+              className="p-3.5 rounded-2xl flex flex-col items-center justify-center text-center w-52 shadow-xs transition-colors"
               style={{
-                backgroundColor: hexToRgba(accentColor, 0.06),
-                borderColor: hexToRgba(accentColor, 0.25),
+                backgroundColor: qrBoxBg,
+                borderColor: qrBoxBorder,
                 borderWidth: '1px',
                 borderStyle: 'solid',
               }}
             >
               {qrSvg ? (
                 <div
-                  className="w-24 h-24 bg-white p-1.5 rounded-xl shadow-2xs overflow-hidden"
+                  className="w-24 h-24 bg-white p-1.5 rounded-xl shadow-2xs overflow-hidden flex items-center justify-center"
                   style={{
-                    borderColor: hexToRgba(accentColor, 0.2),
+                    borderColor: qrInnerBorder,
                     borderWidth: '1px',
                     borderStyle: 'solid',
                   }}
@@ -200,7 +205,7 @@ export const PitchPage2: React.FC<PitchPage2Props> = ({ data }) => {
                 <div
                   className="w-24 h-24 bg-white/60 rounded-xl flex items-center justify-center text-[10px] text-slate-400 italic"
                   style={{
-                    borderColor: hexToRgba(accentColor, 0.2),
+                    borderColor: qrInnerBorder,
                     borderWidth: '1px',
                     borderStyle: 'dashed',
                   }}
@@ -209,10 +214,13 @@ export const PitchPage2: React.FC<PitchPage2Props> = ({ data }) => {
                 </div>
               )}
               <div
-                className="w-3/4 h-px my-2"
-                style={{ backgroundColor: hexToRgba(accentColor, 0.3) }}
+                className="w-3/4 h-px my-2.5"
+                style={{ backgroundColor: qrDividerColor }}
               />
-              <p className="text-[10px] font-semibold truncate max-w-[180px]" style={{ color: '#4B5563' }}>
+              <p
+                className="text-[10px] font-semibold leading-snug break-all max-w-[190px] text-center pt-0.5 pb-1"
+                style={{ color: '#374151' }}
+              >
                 {contact.websiteUrl ? contact.websiteUrl.replace(/^https?:\/\//, '') : 'Scan to visit website'}
               </p>
             </div>
@@ -220,11 +228,11 @@ export const PitchPage2: React.FC<PitchPage2Props> = ({ data }) => {
         </section>
       </div>
 
-      {/* Decorative Bottom Curved Gradient Bar (Dynamically matches accent color) */}
+      {/* Decorative Bottom Curved Gradient Bar (Dynamically matches accent color using solid blend) */}
       <div
-        className="absolute bottom-0 left-0 right-0 h-4 pointer-events-none rounded-t-full opacity-75"
+        className="absolute bottom-0 left-0 right-0 h-4 pointer-events-none rounded-t-full opacity-80"
         style={{
-          background: `linear-gradient(to right, ${hexToRgba(accentColor, 0.25)}, ${hexToRgba(accentColor, 0.5)}, ${hexToRgba(accentColor, 0.25)})`,
+          background: `linear-gradient(to right, ${blendHexColor(accentColor, '#ffffff', 0.25)}, ${blendHexColor(accentColor, '#ffffff', 0.55)}, ${blendHexColor(accentColor, '#ffffff', 0.25)})`,
         }}
       />
     </div>

@@ -21,9 +21,11 @@ import {
   ChevronDown,
   Zap,
   MessageSquare,
+  ArrowRight,
 } from 'lucide-react';
 import { Card } from '../ui/card';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '../ui/collapsible';
+import { Button } from '../ui/button';
 import { cn } from '@/lib/pitch-creator/utils';
 
 interface FormEditorProps {
@@ -33,19 +35,34 @@ interface FormEditorProps {
 }
 
 export const FormEditor: React.FC<FormEditorProps> = ({ data, onChange, errors }) => {
+  // On fresh open, only keep the first section ('brand') open, keep rest closed
   const [openSections, setOpenSections] = useState<Record<string, boolean>>({
     brand: true,
-    offer: true,
-    benefits: true,
-    process: true,
-    why: true,
-    vignettes: true,
-    faqs: true,
-    contact: true,
+    offer: false,
+    benefits: false,
+    process: false,
+    why: false,
+    vignettes: false,
+    faqs: false,
+    contact: false,
   });
+
+  const sectionOrder = ['brand', 'offer', 'benefits', 'process', 'why', 'vignettes', 'faqs', 'contact'];
 
   const toggleSection = (id: string) => {
     setOpenSections((prev) => ({ ...prev, [id]: !prev[id] }));
+  };
+
+  const advanceToNextSection = (currentId: string) => {
+    const currentIndex = sectionOrder.indexOf(currentId);
+    if (currentIndex >= 0 && currentIndex < sectionOrder.length - 1) {
+      const nextId = sectionOrder[currentIndex + 1];
+      setOpenSections((prev) => ({
+        ...prev,
+        [currentId]: false,
+        [nextId]: true,
+      }));
+    }
   };
 
   const sections = [
@@ -122,9 +139,10 @@ export const FormEditor: React.FC<FormEditorProps> = ({ data, onChange, errors }
 
   return (
     <div className="space-y-4 pb-12">
-      {sections.map((section) => {
+      {sections.map((section, idx) => {
         const Icon = section.icon;
         const isOpen = openSections[section.id];
+        const isLastSection = idx === sections.length - 1;
 
         return (
           <Collapsible
@@ -169,8 +187,24 @@ export const FormEditor: React.FC<FormEditorProps> = ({ data, onChange, errors }
               </CollapsibleTrigger>
 
               <CollapsibleContent>
-                <div className="p-4 sm:p-5 border-t border-[#DFE1E6]/70 bg-[#FAFBFC] rounded-b-xl">
+                <div className="p-4 sm:p-5 border-t border-[#DFE1E6]/70 bg-[#FAFBFC] rounded-b-xl space-y-4">
                   {section.component}
+
+                  {/* Next Section Button */}
+                  {!isLastSection && (
+                    <div className="pt-2 border-t border-[#DFE1E6]/60 flex justify-end items-center">
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => advanceToNextSection(section.id)}
+                        className="h-7 text-xs font-semibold text-primary hover:text-primary hover:bg-primary/10 flex items-center space-x-1"
+                      >
+                        <span>Next Section</span>
+                        <ArrowRight className="w-3.5 h-3.5" />
+                      </Button>
+                    </div>
+                  )}
                 </div>
               </CollapsibleContent>
             </Card>

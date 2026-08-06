@@ -54,7 +54,10 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ data, onChange }
             <Input
               type="text"
               value={data.contact.phone}
-              onChange={(e) => onChange('contact.phone', e.target.value)}
+              onChange={(e) => {
+                const sanitized = e.target.value.replace(/[^0-9a-zA-Z\s\-()+]/g, '');
+                onChange('contact.phone', sanitized);
+              }}
               placeholder="e.g. (555) 839-2041"
               className="text-xs pr-8"
             />

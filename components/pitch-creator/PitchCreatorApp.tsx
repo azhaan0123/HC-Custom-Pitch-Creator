@@ -13,7 +13,7 @@ import { TooltipProvider } from './ui/tooltip';
 import { cn } from '@/lib/pitch-creator/utils';
 
 export default function PitchCreatorApp() {
-  const { formData, previewData, updateField, loadPreset, resetForm, isValid, errors } = usePitchForm();
+  const { formData, previewData, updateField, loadPreset, resetForm, isValid, errors, pendingReasons } = usePitchForm();
   const [viewMode, setViewMode] = useState<ViewMode>('split');
   const [isExporting, setIsExporting] = useState(false);
   const [showLeadDialog, setShowLeadDialog] = useState(false);
@@ -58,6 +58,7 @@ export default function PitchCreatorApp() {
             onExport={handleExportClick}
             isExporting={isExporting}
             isValid={isValid}
+            pendingReasons={pendingReasons}
             onLoadPreset={loadPreset}
             onReset={resetForm}
           />

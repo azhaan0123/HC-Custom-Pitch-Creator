@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { PitchData } from '@/lib/pitch-creator/types';
-import { hexToRgba } from '@/lib/pitch-creator/utils';
+import { blendHexColor } from '@/lib/pitch-creator/utils';
 
 interface PitchPage1Props {
   data: PitchData;
@@ -114,19 +114,19 @@ export const PitchPage1: React.FC<PitchPage1Props> = ({ data }) => {
                   <th className="py-2 px-3.5 w-[20%] text-center">Timeline</th>
                 </tr>
               </thead>
-              <tbody className="divide-y" style={{ borderColor: hexToRgba(accentColor, 0.15) }}>
+              <tbody className="divide-y" style={{ borderColor: blendHexColor(accentColor, '#ffffff', 0.2) }}>
                 {howItWorks.steps && howItWorks.steps.length > 0 ? (
                   howItWorks.steps.map((step, idx) => (
                     <tr key={step.id || idx} className="bg-white hover:bg-slate-50/50">
                       <td
                         className="py-2.5 px-3.5 text-[11px] font-bold text-[#111827] border-r align-middle"
-                        style={{ borderColor: hexToRgba(accentColor, 0.15) }}
+                        style={{ borderColor: blendHexColor(accentColor, '#ffffff', 0.2) }}
                       >
                         {step.stepLabel || `Step ${idx + 1}`}
                       </td>
                       <td
                         className="py-2.5 px-3.5 text-[10.5px] text-[#374151] border-r align-middle text-center leading-normal"
-                        style={{ borderColor: hexToRgba(accentColor, 0.15) }}
+                        style={{ borderColor: blendHexColor(accentColor, '#ffffff', 0.2) }}
                       >
                         {step.whatHappens}
                       </td>
@@ -155,11 +155,11 @@ export const PitchPage1: React.FC<PitchPage1Props> = ({ data }) => {
         </section>
       </div>
 
-      {/* Decorative Bottom Curved Gradient Bar (Dynamically matches accent color) */}
+      {/* Decorative Bottom Curved Gradient Bar (Dynamically matches accent color using solid blend) */}
       <div
-        className="absolute bottom-0 left-0 right-0 h-4 pointer-events-none rounded-t-full opacity-75"
+        className="absolute bottom-0 left-0 right-0 h-4 pointer-events-none rounded-t-full opacity-80"
         style={{
-          background: `linear-gradient(to right, ${hexToRgba(accentColor, 0.25)}, ${hexToRgba(accentColor, 0.5)}, ${hexToRgba(accentColor, 0.25)})`,
+          background: `linear-gradient(to right, ${blendHexColor(accentColor, '#ffffff', 0.25)}, ${blendHexColor(accentColor, '#ffffff', 0.55)}, ${blendHexColor(accentColor, '#ffffff', 0.25)})`,
         }}
       />
     </div>
