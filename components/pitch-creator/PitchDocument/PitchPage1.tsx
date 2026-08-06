@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { PitchData } from '@/lib/pitch-creator/types';
+import { hexToRgba } from '@/lib/pitch-creator/utils';
 
 interface PitchPage1Props {
   data: PitchData;
@@ -113,14 +114,20 @@ export const PitchPage1: React.FC<PitchPage1Props> = ({ data }) => {
                   <th className="py-2 px-3.5 w-[20%] text-center">Timeline</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#FCE4EC]">
+              <tbody className="divide-y" style={{ borderColor: hexToRgba(accentColor, 0.15) }}>
                 {howItWorks.steps && howItWorks.steps.length > 0 ? (
                   howItWorks.steps.map((step, idx) => (
                     <tr key={step.id || idx} className="bg-white hover:bg-slate-50/50">
-                      <td className="py-2.5 px-3.5 text-[11px] font-bold text-[#111827] border-r border-[#FCE4EC] align-middle">
+                      <td
+                        className="py-2.5 px-3.5 text-[11px] font-bold text-[#111827] border-r align-middle"
+                        style={{ borderColor: hexToRgba(accentColor, 0.15) }}
+                      >
                         {step.stepLabel || `Step ${idx + 1}`}
                       </td>
-                      <td className="py-2.5 px-3.5 text-[10.5px] text-[#374151] border-r border-[#FCE4EC] align-middle text-center leading-normal">
+                      <td
+                        className="py-2.5 px-3.5 text-[10.5px] text-[#374151] border-r align-middle text-center leading-normal"
+                        style={{ borderColor: hexToRgba(accentColor, 0.15) }}
+                      >
                         {step.whatHappens}
                       </td>
                       <td className="py-2.5 px-3.5 text-[10.5px] text-[#374151] align-middle text-center font-medium">
@@ -148,8 +155,13 @@ export const PitchPage1: React.FC<PitchPage1Props> = ({ data }) => {
         </section>
       </div>
 
-      {/* Decorative Bottom Curved Gradient Bar */}
-      <div className="absolute bottom-0 left-0 right-0 h-4 bg-gradient-to-r from-[#FCE4EC]/60 via-[#FFE0EC]/80 to-[#FCE4EC]/60 pointer-events-none rounded-t-full opacity-70" />
+      {/* Decorative Bottom Curved Gradient Bar (Dynamically matches accent color) */}
+      <div
+        className="absolute bottom-0 left-0 right-0 h-4 pointer-events-none rounded-t-full opacity-75"
+        style={{
+          background: `linear-gradient(to right, ${hexToRgba(accentColor, 0.25)}, ${hexToRgba(accentColor, 0.5)}, ${hexToRgba(accentColor, 0.25)})`,
+        }}
+      />
     </div>
   );
 };

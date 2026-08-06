@@ -3,6 +3,7 @@
 import React from 'react';
 import { PitchData } from '@/lib/pitch-creator/types';
 import { useQRCode } from '@/lib/pitch-creator/qr-generator';
+import { hexToRgba } from '@/lib/pitch-creator/utils';
 
 interface PitchPage2Props {
   data: PitchData;
@@ -175,20 +176,43 @@ export const PitchPage2: React.FC<PitchPage2Props> = ({ data }) => {
               </p>
             </div>
 
-            {/* Right Soft Peach QR Box */}
-            <div className="bg-[#FFF5F2] border border-[#FFE4DC] p-3 rounded-2xl flex flex-col items-center justify-center text-center w-52 shadow-xs">
+            {/* Right Soft QR Box (Dynamically matches accent color) */}
+            <div
+              className="p-3 rounded-2xl flex flex-col items-center justify-center text-center w-52 shadow-xs transition-colors"
+              style={{
+                backgroundColor: hexToRgba(accentColor, 0.06),
+                borderColor: hexToRgba(accentColor, 0.25),
+                borderWidth: '1px',
+                borderStyle: 'solid',
+              }}
+            >
               {qrSvg ? (
                 <div
-                  className="w-24 h-24 bg-white p-1.5 rounded-xl border border-[#FFE4DC] shadow-2xs overflow-hidden"
+                  className="w-24 h-24 bg-white p-1.5 rounded-xl shadow-2xs overflow-hidden"
+                  style={{
+                    borderColor: hexToRgba(accentColor, 0.2),
+                    borderWidth: '1px',
+                    borderStyle: 'solid',
+                  }}
                   dangerouslySetInnerHTML={{ __html: qrSvg }}
                 />
               ) : (
-                <div className="w-24 h-24 bg-white/60 border border-dashed border-[#FFE4DC] rounded-xl flex items-center justify-center text-[10px] text-slate-400 italic">
+                <div
+                  className="w-24 h-24 bg-white/60 rounded-xl flex items-center justify-center text-[10px] text-slate-400 italic"
+                  style={{
+                    borderColor: hexToRgba(accentColor, 0.2),
+                    borderWidth: '1px',
+                    borderStyle: 'dashed',
+                  }}
+                >
                   [QR Code]
                 </div>
               )}
-              <div className="w-3/4 h-px bg-[#FFD8CC] my-2" />
-              <p className="text-[10px] text-[#4B5563] font-semibold truncate max-w-[180px]">
+              <div
+                className="w-3/4 h-px my-2"
+                style={{ backgroundColor: hexToRgba(accentColor, 0.3) }}
+              />
+              <p className="text-[10px] font-semibold truncate max-w-[180px]" style={{ color: '#4B5563' }}>
                 {contact.websiteUrl ? contact.websiteUrl.replace(/^https?:\/\//, '') : 'Scan to visit website'}
               </p>
             </div>
@@ -196,8 +220,13 @@ export const PitchPage2: React.FC<PitchPage2Props> = ({ data }) => {
         </section>
       </div>
 
-      {/* Decorative Bottom Curved Gradient Bar */}
-      <div className="absolute bottom-0 left-0 right-0 h-4 bg-gradient-to-r from-[#FFEADF]/60 via-[#FFE4DC]/80 to-[#FFEADF]/60 pointer-events-none rounded-t-full opacity-70" />
+      {/* Decorative Bottom Curved Gradient Bar (Dynamically matches accent color) */}
+      <div
+        className="absolute bottom-0 left-0 right-0 h-4 pointer-events-none rounded-t-full opacity-75"
+        style={{
+          background: `linear-gradient(to right, ${hexToRgba(accentColor, 0.25)}, ${hexToRgba(accentColor, 0.5)}, ${hexToRgba(accentColor, 0.25)})`,
+        }}
+      />
     </div>
   );
 };
